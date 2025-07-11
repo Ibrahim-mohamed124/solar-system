@@ -61,7 +61,7 @@ pipeline {
         }
         stage('Code Coverage using npm run coverage') {
             when {
-              branch 'fearture/*'
+              branch 'feature/*'
             }
             steps { 
                     catchError(buildResult: 'SUCCESS', message: 'error', stageResult: 'UNSTABLE') {
