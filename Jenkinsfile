@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Dependecies static scanning') {
             when {
-              branch 'fearture/*'
+              branch 'feature/*'
             }
             parallel {
                 stage('NPM Dependency Audit') {
@@ -52,7 +52,7 @@ pipeline {
         }
         stage('Unit testing using npm test') {
             when {
-              branch 'fearture/*'
+              branch 'feature/*'
             }
             options { retry(2) }
             steps {
@@ -74,7 +74,7 @@ pipeline {
         }
         stage('Checking Code Quaity Using SonarQube quality_gate') {
             when {
-              branch 'fearture/*'
+              branch 'feature/*'
             }
             steps {
                 sh 'echo $SONAR_SCANNER_HOME'
@@ -92,7 +92,7 @@ pipeline {
         stage('Docker images building') {
             when {
                 anyOf {
-                   branch 'fearture/*'
+                   branch 'feature/*'
                    branch 'PR*'
                 }
             }
@@ -103,7 +103,7 @@ pipeline {
         stage('Trivy image scanning for filesystem vulnerabilities') {
             when {
                 anyOf {
-                   branch 'fearture/*'
+                   branch 'feature/*'
                    branch 'PR*'
                 }
             }
@@ -124,7 +124,7 @@ pipeline {
         stage('Docker image push') {
             when {
                 anyOf {
-                   branch 'fearture/*'
+                   branch 'feature/*'
                    branch 'PR*'
                 }
             }
@@ -136,7 +136,7 @@ pipeline {
         }
         stage('Continous deployment in dev env on aws ec2 docker instance') {
             when {
-              branch 'fearture/*'
+              branch 'feature/*'
             }
             steps {
                 script {
@@ -159,7 +159,7 @@ pipeline {
         }
         stage('Intergation testing in aws ec2') {
             when {
-              branch 'fearture/*'  
+              branch 'feature/*'  
             }
             steps {
                 withAWS(region: 'me-south-1',credentials: 'aws') {
