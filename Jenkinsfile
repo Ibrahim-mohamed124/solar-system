@@ -143,7 +143,7 @@ pipeline {
                     sh 'echo $GLOBAL_MONGO_URI'
                     sshagent(['ec2']) {
                         sh '''
-                            ssh -o  StrictHostKeyChecking=no ec2-user@157.175.148.33"
+                            ssh -o  StrictHostKeyChecking=no ec2-user@157.175.148.33  "
                             if sudo docker ps -a  | grep -qw "solar-system-app"; then
                                 echo "container is already deployed..stopping.."
                                 sudo docker stop solar-system-app && sudo docker rm solar-system-app
