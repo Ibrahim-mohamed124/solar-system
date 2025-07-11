@@ -83,3 +83,12 @@ resource "aws_instance" "DEV_ENV_EC2_INSTANCE" {
 
 }
 
+resource "aws_s3_bucket" "reports-bucket" {
+  bucket = "securityreportsjenkins1"
+  
+
+  tags = {
+    Name        = "Securit_reports"
+    Environment = "Dev"
+  }
+}
