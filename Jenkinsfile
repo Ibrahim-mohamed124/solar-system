@@ -8,7 +8,7 @@ pipeline {
      MONGO_PASSWORD = credentials('mongodb_pass')
      GLOBAL_MONGO_URI = "'mongodb+srv://cluster0.6mj9gr7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'"
      SONAR_SCANNER_HOME = tool 'sonarqubescanner';
-     GITEA_TOKEN =  credentials('gitea_token')
+     GITEA_TOKEN =  credentials('giteatokensecrettext')
     }
     tools {
       nodejs 'nodejs' 
