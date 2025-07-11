@@ -24,7 +24,9 @@ This setup assumes the following components are provisioned and accessible:
 | AWS EC2 Instance                 | Continuous deployment target                |
 | Kubernetes Cluster w/ ArgoCD     | Continuous delivery platform                |
 | AWS Lambda Function              | Production logic (for learning purposes)    |
+| S3 bucket                        | To store scan reports
 
+// Note: The infra. on AWS can be provisioned and configured using terraform and ansible directories in this repo
 ---
 
 ## 🔌 Jenkins Configuration
