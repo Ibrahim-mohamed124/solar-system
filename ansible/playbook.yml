@@ -1,0 +1,41 @@
+- hosts: tag_Name_DEV_ENV_EC2_INSTANCE
+  become: yes
+  vars:
+    ansible_user: "ec2-user"
+    ansible_ssh_private_key_file:  "~/.ssh/jenkins"
+  tasks:
+   - name: Adding docker repo
+     ansible.builtin.yum_repository:
+      name: docker
+      description: docker_repo
+      file: docker_repo
+      baseurl: https://download.docker.com/linux/rhel/$releasever/$basearch/stable
+      gpgkey: https://download.docker.com/linux/rhel/gpg
+      gpgcheck: yes
+   - name: Updading the cache
+     command: yum makecache
+   - name: Installing docker
+     yum:
+       name: 
+        - docker-ce 
+        - docker-ce-cli 
+        - containerd.io 
+        - docker-buildx-plugin
+       state: present
+   - name: Starting dockerd
+     service:
+      name: docker
+      state: started
+      enabled: yes
+   - name: Creating docker group
+     group:
+      name: docker
+      state: present
+   - name: Adding ec2-user to docker group
+     user:
+      name: ec2-user
+      groups: docker
+   - name: rebooting
+     reboot:
+
+
