@@ -1,6 +1,6 @@
 #!/bin/bash
 
-URL=`aws ec2 describe-instances  --filters "Name=tag:Name,Values=docker_instance_for_testing" | jq .Reservations[].Instances[].PublicIpAddress| tr -d '"'`
+URL=`aws ec2 describe-instances  --filters "Name=tag:Name,Values=DEV_ENV_EC2_INSTANCE" | jq .Reservations[].Instances[].PublicIpAddress| tr -d '"'`
 
 if [[ $URL != '' ]]; then
         liveness=$(curl -S -o /dev/null -w %{http_code} http://$URL/live)
