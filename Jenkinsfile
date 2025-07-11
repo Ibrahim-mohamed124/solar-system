@@ -3,7 +3,7 @@ pipeline {
         label 'Build_Test_Node'
     }
     environment {
-     MONGO_URI = "mongodb://your_local_mongodb_instance_ip:27017"
+     MONGO_URI = "mongodb://192.168.0.104:27017"
      MONGO_USERNAME = credentials('mongodb_username')
      MONGO_PASSWORD = credentials('mongodb_pass')
      GLOBAL_MONGO_URI = 'your_global_mongodb_instance_uri'
@@ -143,7 +143,7 @@ pipeline {
                     sh 'echo $GLOBAL_MONGO_URI'
                     sshagent(['ec2']) {
                         sh '''
-                            ssh -o  StrictHostKeyChecking=no ubuntu@your_ec2_instance_ip "
+                            ssh -o  StrictHostKeyChecking=no ec2-user@157.175.148.33"
                             if sudo docker ps -a  | grep -qw "solar-system-app"; then
                                 echo "container is already deployed..stopping.."
                                 sudo docker stop solar-system-app && sudo docker rm solar-system-app
@@ -177,7 +177,7 @@ pipeline {
                 branch 'PR*'
             }
             steps {
-                sh 'git clone -b main http://your_gitea_ip:3000/myorg/solar-system-gitops-argocd-gitea'
+                sh 'git clone -b main http://192.168.0.104:3000/myorg/solar-system-gitops-argocd-gitea'
                 dir("solar-system-gitops-argocd-gitea/kubernetes") {
                     sh '''
                     git checkout main
@@ -185,7 +185,7 @@ pipeline {
                     sed -i "s#ibrahimmohamed2.*#ibrahimmohamed2/solar-system:$GIT_COMMIT#g" deployment.yml
                     git config --global user.email "sci.ibrahimmohamed@gmail.com"
                     git config --global user.name "ibrahim"
-                    git remote set-url origin http://$GITEA_TOKEN@your_gitea_ip:3000/myorg/solar-system-gitops-argocd-gitea
+                    git remote set-url origin http://$GITEA_TOKEN@192.168.0.104:3000/myorg/solar-system-gitops-argocd-gitea
                     git add .
                     git commit -m "'after changing the tag'"
                     git push -u origin feature-$BUILD_ID
@@ -200,7 +200,7 @@ pipeline {
             steps {
                 sh """
                         curl -X 'POST' \
-                        'http://your_gitea_ip:3000/api/v1/repos/myorg/solar-system-gitops-argocd-gitea/pulls' \
+                        'http://192.168.0.104:3000/api/v1/repos/myorg/solar-system-gitops-argocd-gitea/pulls' \
                         -H 'accept: application/json' \
                         -H "Authorization: token $GITEA_TOKEN" \
                         -H 'Content-Type: application/json' \
@@ -332,4 +332,4 @@ pipeline {
            publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, icon: '', keepAll: true, reportDir: './', reportFiles: 'zap_report.html', reportName: 'DAST analysis', reportTitles: '', useWrapperFileDirectly: true])
        }
     }   
-}
+} 
