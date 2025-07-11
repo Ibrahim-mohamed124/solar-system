@@ -6,7 +6,7 @@ pipeline {
      MONGO_URI = "mongodb://192.168.0.104:27017"
      MONGO_USERNAME = credentials('mongodb_username')
      MONGO_PASSWORD = credentials('mongodb_pass')
-     GLOBAL_MONGO_URI = 'your_global_mongodb_instance_uri'
+     GLOBAL_MONGO_URI = 'mongodb+srv://cluster0.6mj9gr7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
      SONAR_SCANNER_HOME = tool 'sonarqubescanner';
      GITEA_TOKEN =  credentials('gitea_token')
     }
