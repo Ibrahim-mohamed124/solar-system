@@ -179,7 +179,7 @@ pipeline {
             steps {
                 sh 'git clone -b main http://192.168.0.104:3000/myorg/solar-system-gitops-argocd-gitea'
                 dir("solar-system-gitops-argocd-gitea/kubernetes") {
-                    sh '''
+                    sh """
                     git checkout main
                     git checkout -b feature-$BUILD_ID
                     sed -i "s#ibrahimmohamed2.*#ibrahimmohamed2/solar-system:$GIT_COMMIT#g" deployment.yml
@@ -189,7 +189,7 @@ pipeline {
                     git add .
                     git commit -m "'after changing the tag'"
                     git push -u origin feature-$BUILD_ID
-                    '''
+                    """
                 }
             }
         }
