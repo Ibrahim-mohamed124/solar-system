@@ -150,7 +150,7 @@ pipeline {
                                 echo "cleaned up"
                             fi
                             echo $GLOBAL_MONGO_URI > test.txt
-                            sudo docker run -p 80:3000 --name solar-system-app -e MONGO_URI=$GLOBAL_MONGO_URI -e MONGO_USERNAME=$MONGO_USERNAME -e MONGO_PASSWORD=$MONGO_PASSWORD -d ibrahimmohamed2/solar-system:$GIT_COMMIT
+                            sudo docker run -p 80:3001 --name solar-system-app -e MONGO_URI=$GLOBAL_MONGO_URI -e MONGO_USERNAME=$MONGO_USERNAME -e MONGO_PASSWORD=$MONGO_PASSWORD -d ibrahimmohamed2/solar-system:$GIT_COMMIT
                             "
                         '''
                     }
